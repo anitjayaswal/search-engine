@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="result-search-wrapper cf" action="{{ url_for('search') }}" method=post>
+    <input type="text" size=50 name=query placeholder="Search here..." required="">
+    <button type="submit">Search</button>
+</form>
+<div id="main">
+    <div id="google1">
+        <table>
+          <tr>
+             <th>Link</th>
+              <th>Source</th>
+              <th>Defination</th>
+          </tr>
+            {% for doc in results['google'] %}
+
+              <tr>
+                <td><a href="{{ doc['link'] }}" target="_blank">{{ doc['title'] }}</a></td>
+                <td><small>{{ doc['source'] }}</small></td>
+                <td><p>{{ doc['snippet'] }}</p></td>
+              </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+    <div id="not-google">
+        <div id="bing">
+            <ol>
+                {% for doc in results['bing'] %}
+                <div class="result-wrapper bing-color">
+                    <ui>
+                        <a href="{{ doc['link'] }}">{{ doc['title'] }}</a>
+                        <small>{{ doc['source'] }}</small>
+                        <p>{{ doc['snippet'] }}</p>
+                    </ui>
+                </div>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="yahoo">
+            <ol>
+                {% for doc in results['yahoo'] %}
+                <div class="result-wrapper yahoo-color">
+                    <ui>
+                        <a href="{{ doc['link'] }}">{{ doc['title'] }}</a>
+                        <small>{{ doc['source'] }}</small>
+                        <p>{{ doc['snippet'] }}</p>
+                    </ui>
+                </div>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
